@@ -1,0 +1,152 @@
+#imports 
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+#Code for gradient descent 
+
+def gradient_descent(x0, y0, grad_f, alpha, num_iterations):
+    x, y = [x0], [y0] #initializing lists for x and y, x0 and y0 to be chosen 
+
+    for i in range(1, num_iterations+1): #loop that runs through 1 and 'num_iterations+1' many times 
+        grad_x, grad_y = grad_f(x[-1], y[-1]) #partial derivatives of x and y updtaed based on last iteration 
+        xvals = x[-1] - alpha * grad_x #gradient descent formula for x 
+        yvals = y[-1] - alpha * grad_y #gradient descent formula for y 
+        x.append(xvals)
+        y.append(yvals)
+
+    return x, y
+
+#need to initialize some function grad_f and some function fun_
+
+# Test code 1
+#function 
+def fun_1(x, y):
+    return x**2 + y**2 #test function 
+
+#partial derivatives 
+def grad_f_1(x, y):
+    grad_x = 2*x + y**2 #partial derivative with respect to x 
+    grad_y = 2*y + x**2 #partial derivative with respect to y 
+
+    return grad_x, grad_y
+
+# Set initial values
+alpha = 0.1 #chaneg in variables every iteration 
+num_iterations = 10 #number of iterations 
+x0, y0 = 0.1, 0.1 #initial values 
+
+#gardient descent 
+def gradient_descent(x0, y0, fun_1, grad_f_1, alpha, num_iterations):
+    x, y = [x0], [y0]
+
+    for i in range(1, num_iterations+1):
+        grad_x, grad_y = grad_f_1(x[-1], y[-1])  
+        xvals = x[-1] - alpha * grad_x
+        yvals = y[-1] - alpha * grad_y
+        x.append(xvals)
+        y.append(yvals)
+
+    return x, y
+
+x, y = gradient_descent(x0, y0, fun_1, grad_f_1, alpha, num_iterations)
+print(x, y)
+
+# Test code 2
+#function 
+def fun_1(x, y):
+    return x**2 + y**2
+
+#Partial derivatives 
+def grad_f_1(x, y):
+    grad_x = 2*x + y**2
+    grad_y = 2*y + x**2
+
+    return grad_x, grad_y
+
+#Initial Values
+alpha = 0.01
+num_iterations = 100
+x0, y0 = -1, 1
+
+#gradient descent 
+def gradient_descent(x0, y0, fun_1, grad_f_1, alpha, num_iterations):
+    x, y = [x0], [y0]
+
+    for i in range(1, num_iterations + 1):
+        grad_x, grad_y = grad_f_1(x[-1], y[-1])  
+        xvals = x[-1] - alpha * grad_x
+        yvals = y[-1] - alpha * grad_y
+        x.append(xvals)
+        y.append(yvals)
+
+    return x, y
+
+print(gradient_descent(x0, y0, fun_1, grad_f_1, alpha, num_iterations))
+
+#Test code 3
+#function 
+def fun_2(x,y):
+    return 1-np.exp(-x**2-(y-2)**2)-2*np.exp(-x**2-(y+2)**2)
+
+#partial derivatives 
+def grad_f_2(x,y):
+    grad_x = 2*x*np.exp(-x**2-(y-2)**2)+4*x*np.exp(-x**2-(y+2)**2)
+    grad_y = 2*(y-2)*np.exp(-x**2-(y-2)**2)+4*(y+2)*np.exp(-x**2-(y+2)**2)
+    return grad_x, grad_y
+
+#Initial values 
+alpha = 0.01
+num_iterations = 10000
+x0, y0 = 0, 1
+
+#gradient descent 
+def gradient_descent(x0, y0, fun_1, grad_f_1, alpha, num_iterations):
+    x, y = [x0], [y0]
+
+    for i in range(1, num_iterations + 1):
+        grad_x, grad_y = grad_f_1(x[-1], y[-1])  
+        xvals = x[-1] - alpha * grad_x
+        yvals = y[-1] - alpha * grad_y
+        x.append(xvals)
+        y.append(yvals)
+
+    return x, y
+
+x, y = gradient_descent(x0, y0, fun_1, grad_f_1, alpha, num_iterations)
+
+#print(x, y) #commented out because this prints like 20000 numbers 
+
+#Test code 4
+
+#Test function 
+def fun_2(x,y):
+    return 1-np.exp(-x**2-(y-2)**2)-2*np.exp(-x**2-(y+2)**2)
+
+#partial derivatives 
+def grad_f_2(x,y):
+    grad_x = 2*x*np.exp(-x**2-(y-2)**2)+4*x*np.exp(-x**2-(y+2)**2)
+    grad_y = 2*(y-2)*np.exp(-x**2-(y-2)**2)+4*(y+2)*np.exp(-x**2-(y+2)**2)
+    return grad_x, grad_y
+
+#Initial values 
+alpha = 0.01
+num_iterations = 1000
+x0, y0 = 0,-1
+
+#Gradient descent 
+def gradient_descent(x0, y0, fun_1, grad_f_1, alpha, num_iterations):
+    x, y = [x0], [y0]
+
+    for i in range(1, num_iterations + 1):
+        grad_x, grad_y = grad_f_1(x[-1], y[-1])  
+        xvals = x[-1] - alpha * grad_x
+        yvals = y[-1] - alpha * grad_y
+        x.append(xvals)
+        y.append(yvals)
+
+    return x, y
+
+x, y = gradient_descent(x0, y0, fun_1, grad_f_1, alpha, num_iterations)
+#print(x, y) commented out because this prints like 20,000 values
+
