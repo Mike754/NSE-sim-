@@ -1,0 +1,53 @@
+import numpy as np
+from scipy.special import gamma
+
+def t_distribution_pdf(x, nu): 
+    coeff = gamma((nu + 1) / 2) / (np.sqrt(nu * np.pi) * gamma(nu / 2)) 
+    density = coeff * (1 + x**2 / nu) ** (-0.5 * (nu + 1))
+    return density
+
+scores = [92.64, 79.00, 84.79, 97.41, 93.68, 65.23, 84.50, 73.49, 73.97, 79.11]
+
+# 1. Mean and std
+n = len(scores)
+avg_x = sum(scores) / n
+
+nu0 = 75  # null hypothesis
+
+def Std(scores, avg_x, int_s, deriv_s):
+    int_s = []
+    for i in range(n):
+        int_si = (scores[i] - avg_x)**2
+        int_s.append(int_si)
+    si = np.sqrt(sum(int_s)/(n-1))
+    return si
+
+# 2. t0
+def t0(avg_x, nu0, deriv_s, n):
+    si = Std(scores, avg_x, [], [])
+    T0 = ((avg_x - nu0) / (si/np.sqrt(n)))
+    return T0
+
+# 3. find_t_star
+def find_t_star(prob, nu, x_start=0, x_end=20, num_points=10000):
+    nu = n-1
+    prob = 0.95
+    x = np.linspace(x_start, x_end, num_points)
+    y = t_distribution_pdf(x, nu)
+    cdf = np.cumsum(y) * (x[1] - x[0])
+    target_half_prob = prob / 2
+    index = np.where(cdf >= target_half_prob)[0][0]
+    result = x[index]
+    return x[index]
+
+# 4. Check 
+def test(t0, crit_t_value):
+    if -1 * crit_t_value < t0 < crit_t_value:
+        print('Hypothesis was accurate!')
+    else:
+        print('Hypothesis was inaccurate ✊😞')
+
+t0_value = t0(avg_x, nu0, [], n)
+crit_t_value = find_t_star(prob=0.95, nu=n-1)
+
+test(t0_value, crit_t_value)
