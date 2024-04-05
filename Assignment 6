@@ -1,0 +1,108 @@
+import numpy as np 
+import matplotlib.pyplot as plt
+%matplotlib inline
+import math as ma
+
+#I'm just gonna set up my function as a list, since it's a lot simpler
+
+# I find it a lot easier to just use euler's method than approximating it using a function. 
+
+# define variables and parameters
+x = [0] 
+y = [0.242] # y intercept 
+n = 100
+dt = 0.01  
+
+a = 1 # average
+pi = np.pi
+v = 1 # variance 
+
+# Euler's method algorithm
+for i in range(1,n+1): 
+    xi = x[i-1] + dt # changes x based on some small interval dt 
+    yi = y[i-1] + ((-(x[i-1]-a) * np.exp(-(x[i-1]-a)**2/2*v**2))/np.sqrt(2*pi*v**2))*dt #This is the derivative * dt
+    x.append(xi)
+    y.append(yi)
+                   
+print('The normal distribution at', xi, 'is', yi) #print statement for desired x value 
+
+plt.plot(x,y)
+plt.grid()
+
+# it doesnt look much like a bell curve because the scale is so small, but if you zoom out it looks good 
+# I checked on desmos and it approximates the right number!
+
+# I find it a lot easier to just use euler's method than approximating it using a function. 
+
+x = [0] 
+y = [0.078] 
+n = 5 
+dt = 0.1  
+
+a = 0.5
+pi = 3.141592659
+v = 0.1 
+
+for i in range(1,n+1): 
+    xi = x[i-1] + dt
+    yi = y[i-1] + (-(x[i-1]-a) * np.exp(-(x[i-1]-a)**2/2*v**2) / np.sqrt(2*pi*v**2))*dt
+    x.append(xi)
+    y.append(yi)
+                   
+print('The normal distribution at', xi, 'is', yi)
+
+plt.plot(x,y)
+plt.grid()
+
+# define parameters
+n = 5
+a = -1
+b = 1
+A = 1
+v = 1
+dx = (b-a)/n
+pi = np.pi
+
+x = np.linspace(a,b,n+1) 
+# define variables 
+y_mid = []
+
+#Midpoint algorithm 
+
+for i in range(n):
+    xm = (x[i+1]-x[i])/2+x[i] #Takes the rightmost endpoint minus the leftmost, divides by 2 and then 
+#adds to the left
+    ym = np.exp(-(x-A)**2/2*v**2)/np.sqrt(2*pi*v**2)
+    y_mid.append(ym)
+
+ms = sum(y_mid)*dx
+
+print(sum(ms))
+
+#code for height
+
+# define parameters
+n = 10
+a = 162
+b = 190
+A = 171
+v = 7.1
+dx = (b-a)/n
+pi = np.pi
+
+x = np.linspace(a,b,n+1) 
+# define variables 
+y_mid = []
+
+#Midpoint algorithm 
+
+for i in range(n):
+    xm = (x[i+1]-x[i])/2+x[i] #Takes the rightmost endpoint minus the leftmost, divides by 2 and then 
+#adds to the left
+    ym = np.exp(-(x-A)**2/2*v**2)/np.sqrt(2*pi*v**2)
+    y_mid.append(ym)
+
+ms = sum(y_mid)*dx
+
+print(sum(ms)*100)
+# i erm dont think this is right but idk whats wrong with it
