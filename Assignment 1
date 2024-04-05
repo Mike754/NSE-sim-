@@ -1,0 +1,25 @@
+× = float (input ("Give × value: "))
+def coding_HELL(x):
+  if x>1 or x<0:
+    print("error!")
+#here is my error statement when the input does not meet the right parameters
+  else:
+    n = 0
+    coding_HELL = 0
+    error_bound = 0
+#This else statement initializes my variables and sets up steps for the computer to perform #if the input fits the parameters
+  while (error_bound < 0.0001):
+    n += I
+    error_bound = (×**(2*n+1) / (2*n+1))
+    coding_HELL += (((((-1)**n)*×**(2*n+1))/(2*n+1)))
+    o = 7*n+1
+#This while coop runs both the function and the error margin, constantly checking 
+#that the updated result is still within the parameters
+#Previously set up. This way, the function will run until it does not meet those parameters.
+    print (coding_HELL, o, error_bound)
+
+print(coding_HELL (x))
+#use while loops. while loops run, statement is true. each time you go through, add next term 
+#if is1 time statement, while is loop.
+# biggest term is ((x) ^2n+1) /2n+1
+error_bound= ×**(2*n+1) / (2*n+1)
