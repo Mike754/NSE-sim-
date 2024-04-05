@@ -1,0 +1,83 @@
+import sympy as sp
+import numpy as np
+import matplotlib.pyplot as plt
+
+#Practice
+x, y = sp.symbols('x y')
+f = x**2 + sp.sin(y)
+df_dx = sp.diff(f, x)
+d_dy = sp.diff(f,y)
+
+#A
+x, y = sp.symbols('x y')
+f = sp.exp(x)*sp.sin(y)+y**3
+df_dx = sp.diff(f,x)
+df_dy = sp.diff(f,y)
+
+print(df_dx)
+print(df_dy)
+
+#B 
+def mag_g(x, y):
+    x, y = sp.symbols('x y')
+    g = (x**2)*y + x*(y**2)
+    dg_dx = sp.diff(g, x)
+    dg_dy = sp.diff(g, y)
+    mag = sp.sqrt(dg_dx**2 + dg_dy**2)
+    return mag
+
+# Evaluate the function at specific values
+x, y = 1, -1
+print(mag_g(x, y))
+print(np.sqrt((x**2+2*x*y)**2+(2*x*y+y**2)**2))
+
+#C 
+x, y = sp.symbols('x y')
+h = sp.log(x**2+y**2)
+dh_dx = sp.diff(f,x)
+dh_dy = sp.diff(f,y)
+dh_dxx = sp.diff(dh_dx, x)
+dh_dyy = sp.diff(dh_dy, y)
+dh_dxy = sp.diff(dh_dx, y)
+dh_dyx = sp.diff(dh_dy, x)
+
+print('hxx:',dh_dxx)
+print('hyy:',dh_dyy)
+print('hxy:', dh_dxy)
+print('hyx:', dh_dyx)
+
+#Note that both mixed second partial derivates are the same. This is because of 
+#Clairaut's theorem- 'If fxy and fyx are both defined and continuous in a region 
+#containing the point (a,b), then fxy(a,b)=fyx(a,b)'. 
+
+#D
+x, y = sp.symbols('x y')
+j = x**3 - 3*x*y + y**3
+j_func = sp.lambdify((x, y), j, 'numpy')
+
+x_vals = np.linspace(-3, 3, 400)
+y_vals = np.linspace(-3, 3, 400)
+X, Y = np.meshgrid(x_vals, y_vals)
+Z = j_func(X, Y)
+plt.contourf(X, Y, Z, levels=50, cmap='viridis')
+plt.colorbar()
+plt.title('Contour plot of $j(x, y) = x^3 - 3xy + y^3$')
+plt.xlabel('$x$')
+plt.ylabel('$y$')
+plt.show()
+
+#E 
+x, y = sp.symbols('x y')
+j = sp.sin(x)+sp.sin(10*x)+sp.sin(y)+sp.sin(10*y)
+j_func = sp.lambdify((x, y), j, 'numpy')
+
+x_vals = np.linspace(-3, 3, 1000)
+y_vals = np.linspace(-3, 3, 1000)
+X, Y = np.meshgrid(x_vals, y_vals)
+Z = j_func(X, Y)
+plt.contourf(X, Y, Z, levels=50, cmap='viridis')
+plt.colorbar()
+plt.title('Contour plot')
+plt.xlabel('$x$')
+plt.ylabel('$y$')
+plt.show()
