@@ -1,0 +1,24 @@
+import math 
+
+def f(x):
+    return math.exp(x) + math.log(x)
+
+def roots(f, a, b, n):
+    if f(a) * f(b) >= 0:
+        print("No roots found. Try again with different interval.")
+        return None
+    else:
+        for _ in range(n):
+            M = (a + b) / 2
+            if f(b) * f(M) < 0:
+                a = M
+            else:
+                b = M
+        return (a + b) / 2
+
+a = 0
+b = 1
+n = 9
+result = roots(f, a, b, n)
+if result is not None:
+    print("Root approximation:", result)
